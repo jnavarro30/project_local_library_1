@@ -8,17 +8,21 @@ function sortAccountsByLastName(accounts) {
   return accounts.sort((a, b) => a.name.last < b.name.last ? -1 : 1);
 }
 
+function getBorrowByIdHelper( borrowsArray, accountId ){
+	let total = 0;
+	borrowsArray.forEach(borrow => {
+      if (borrow.id === accountId) {
+      	total++;
+      }
+    });
+    return total;
+}
 function getTotalNumberOfBorrows(account, books) {
   let total = 0;
-
   for (let i = 0; i < books.length; i++) {
     let borrowsArray = books[i].borrows;
-
-    borrowsArray.forEach(borrow => {
-      if (borrow.id === account.id) total++;
-    });
+    total += getBorrowByIdHelper( borrowsArray, account.id ); 
   }
-
   return total;
 }
 
